@@ -68,7 +68,8 @@ public class App
         {
             System.out.println("\nMenu:");
             System.out.println("1. List all students and their total marks");
-            System.out.println("2. Exit");
+            System.out.println("2. List students with total marks below a threshold");
+            System.out.println("3. Exit");
             System.out.print("Enter your choice (1-2): ");
 
             int choice = scanner.nextInt();
@@ -80,6 +81,11 @@ public class App
                     listAllStudents();
                     break;
                 case 2:
+                    System.out.print("Enter the threshold: ");
+                    int threshold = scanner.nextInt();
+                    listStudentsBelowThreshold(threshold);
+                    break;
+                case 3:
                     System.out.println("Exiting the program. Goodbye!");
                     scanner.close();
                     System.exit(0);
@@ -89,6 +95,7 @@ public class App
         }
     }
 
+    // F1 Function
     private static void readStudentDataFromFile(String fileName) 
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) 
@@ -122,13 +129,34 @@ public class App
             System.exit(1);
         }
     }
-
+    // F2 Function
     private static void listAllStudents() 
     {
         System.out.println("List of all students and their total marks:");
         for (Student student : students) 
         {
             System.out.println(student);
+        }
+    }
+
+    // F3 Function
+    private static void listStudentsBelowThreshold(int threshold) 
+    {
+        System.out.println("List of students with total marks below " + threshold + ":");
+    
+        List<Student> studentsBelowThreshold = new ArrayList<>();
+    
+        for (Student student : students) 
+        {
+            if (student.getTotalMark() < threshold) 
+            {
+                studentsBelowThreshold.add(student);
+            }
+        }
+    
+        for (Student student : studentsBelowThreshold) 
+        {
+            System.out.println(student.getName() + ", " + student.getStudentID() + ", " + student.getTotalMark());
         }
     }
     
