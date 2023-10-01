@@ -1,8 +1,8 @@
 # Assignment-No2-Fundamentals-of-programming
 Please write the full Path of the txt file when asked for the name of the File.
-The format in which the txt should be written is also provider as a file named app.txt
+The format in which the txt should be written in text file is also provided as a file named app.txt
 an Example is also given here.
-Unit 1
+// Unit name
 John Doe, S12345, 85, 90, 78
 Alice Smith, S23456, 92, 88, 95
 Bob Johnson, S34567, 75, 81, 89
