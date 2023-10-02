@@ -58,8 +58,7 @@ public class App
     {
         Scanner scanner = new Scanner(System.in);
         String fileName;
-
-        System.out.print("Enter the name of the text file: ");
+        System.out.print("Note:\nPlease check the formation of text file it should be like the formation of app.txt file provided\nEnter the Path of text file: ");
         fileName = scanner.nextLine();
 
         readStudentDataFromFile(fileName);
@@ -69,8 +68,10 @@ public class App
             System.out.println("\nMenu:");
             System.out.println("1. List all students and their total marks");
             System.out.println("2. List students with total marks below a threshold");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice (1-2): ");
+            System.out.println("3. List top 5 students with the highest total marks");
+            System.out.println("4. List top 5 students with the lowest total marks");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice (1-5): ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -86,6 +87,12 @@ public class App
                     listStudentsBelowThreshold(threshold);
                     break;
                 case 3:
+                    listTop5Students(true);
+                    break;
+                case 4:
+                    listTop5Students(false);
+                    break;
+                case 5:
                     System.out.println("Exiting the program. Goodbye!");
                     scanner.close();
                     System.exit(0);
@@ -95,7 +102,6 @@ public class App
         }
     }
 
-    // F1 Function
     private static void readStudentDataFromFile(String fileName) 
     {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) 
@@ -129,7 +135,7 @@ public class App
             System.exit(1);
         }
     }
-    // F2 Function
+
     private static void listAllStudents() 
     {
         System.out.println("List of all students and their total marks:");
@@ -139,7 +145,6 @@ public class App
         }
     }
 
-    // F3 Function
     private static void listStudentsBelowThreshold(int threshold) 
     {
         System.out.println("List of students with total marks below " + threshold + ":");
@@ -157,6 +162,53 @@ public class App
         for (Student student : studentsBelowThreshold) 
         {
             System.out.println(student.getName() + ", " + student.getStudentID() + ", " + student.getTotalMark());
+        }
+    }
+    
+
+    private static void listTop5Students(boolean highest) 
+    {
+        List<Student> topStudents = new ArrayList<>();
+    
+        if (highest) 
+        {
+            System.out.println("List of top 5 students with the highest total marks:");
+            for (int i = 0; i < 5; i++) 
+            {
+                Student maxStudent = null;
+                for (Student student : students) 
+                {
+                    if (maxStudent == null || student.getTotalMark() > maxStudent.getTotalMark()) 
+                    {
+                        maxStudent = student;
+                    }
+                }
+                if (maxStudent != null) 
+                {
+                    topStudents.add(maxStudent);
+                    students.remove(maxStudent);
+                    System.out.println(maxStudent.getName() + ", " + maxStudent.getStudentID() + ", " + maxStudent.getTotalMark());
+                }
+            }
+        } else {
+            System.out.println("List of top 5 students with the lowest total marks:");
+            for (int i = 0; i < 5; i++) 
+            {
+                Student minStudent = null;
+                for (Student student : students) 
+                {
+                    if (minStudent == null || student.getTotalMark() < minStudent.getTotalMark()) 
+                    {
+                        minStudent = student;
+                    }
+                }
+                if (minStudent != null) 
+                {
+                    topStudents.add(minStudent);
+                    students.remove(minStudent);
+                    System.out.println(minStudent.getName() + ", " + minStudent.getStudentID() + ", " + minStudent.getTotalMark());
+                }
+            }
         }
     }
     
